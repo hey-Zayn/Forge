@@ -1,0 +1,23 @@
+<%%- include('partials/header') %>
+
+<div class="hero">
+    <h1>Welcome to your MERN Backend</h1>
+    <p>Your API is running perfectly at port 5000.</p>
+    <div class="status-card">
+        <h3>Server Status</h3>
+        <p id="status-text">Checking...</p>
+    </div>
+</div>
+
+<script>
+    fetch('/api/v1/health')
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById('status-text').innerHTML = `✅ Healthy (Uptime: ${Math.floor(data.data.uptime)}s)`;
+        })
+        .catch(err => {
+            document.getElementById('status-text').innerHTML = `❌ Error connecting to API`;
+        });
+</script>
+
+<%%- include('partials/footer') %>
